@@ -33,10 +33,10 @@ jobs:
   deploy:
     name: Deploy to GitHub Pages
     needs: test # Этот job зависит от успешного выполнения job 'test'. Деплой не начнется, если тесты провалились.
-    if: success() && github.ref == 'refs/heads/main' # Деплоить только если тесты прошли и это ветка main
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main' # Деплоить только при push в main (тесты уже проверены через needs: test)
     runs-on: ubuntu-latest
     permissions:
-      contents: read
+      contents: write # Нужно для записи в ветку gh-pages
       pages: write
       id-token: write
 
@@ -56,9 +56,12 @@ jobs:
       - name: Build project
         run: npm run build # Собираем проект для деплоя
 
+      - name: Configure Git
+        run: |
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+
       - name: Deploy to GitHub Pages
         run: npm run deploy # Запускаем скрипт деплоя gh-pages
         env:
-          GH_TOKEN:
-            ${{ secrets.GITHUB_TOKEN }} # Используем встроенный токен GitHub для аутентификации
-            # gh-pages обычно использует этот токен по умолчанию.
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }} # Используем встроенный токен GitHub для аутентификации
