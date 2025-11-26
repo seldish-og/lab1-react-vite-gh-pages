@@ -60,6 +60,9 @@ jobs:
         run: |
           git config --global user.name "github-actions[bot]"
           git config --global user.email "github-actions[bot]@users.noreply.github.com"
+          git config --global credential.helper store
+          echo "https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com" > ~/.git-credentials
+          git remote set-url origin https://github.com/${{ github.repository }}.git
 
       - name: Deploy to GitHub Pages
         run: npm run deploy # Запускаем скрипт деплоя gh-pages
