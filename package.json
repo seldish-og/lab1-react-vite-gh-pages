@@ -3,7 +3,7 @@
   "private": true,
   "version": "0.0.0",
   "type": "module",
-  "homepage": "https://<ваш-username>.github.io/lab1-react-vite-gh-pages",
+  "homepage": "https://seldish-og.github.io/lab1-react-vite-gh-pages",
   "scripts": {
     "dev": "vite",
     "build": "tsc -b && vite build",
