@@ -1,6 +1,5 @@
 import react from '@vitejs/plugin-react'
-import { defineConfig } from 'vite'
-import { UserConfig } from 'vitest/config'
+import { defineConfig } from 'vitest/config'
 
 // https://vite.dev/config/
 export default defineConfig({
@@ -11,5 +10,5 @@ export default defineConfig({
     environment: 'jsdom',
     setupFiles: './src/setupTests.ts',
     css: true,
-  } as UserConfig,
+  },
 })
