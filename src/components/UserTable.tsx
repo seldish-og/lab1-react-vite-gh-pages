@@ -1,12 +1,5 @@
 import { useState } from 'react'
-
-type User = {
-  id: number
-  name: string
-  email: string
-  phone: string
-  website: string
-}
+import { mockUsers, type User } from '../data/mockUsers'
 
 export default function UserTable() {
   const [users, setUsers] = useState<User[]>([])
@@ -18,12 +11,9 @@ export default function UserTable() {
     setLoading(true)
     setError(null)
     try {
-      const response = await fetch('https://jsonplaceholder.typicode.com/users')
-      if (!response.ok) {
-        throw new Error(`HTTP error! status: ${response.status}`)
-      }
-      const data: User[] = await response.json()
-      setUsers(data)
+      // Имитация асинхронной загрузки с моковыми данными
+      await new Promise((resolve) => setTimeout(resolve, 300))
+      setUsers(mockUsers)
     } catch (err) {
       setError(err instanceof Error ? err.message : 'Неизвестная ошибка')
     } finally {
